@@ -15,7 +15,12 @@ const io = new Server(server, {
 const users = {};
 
 // Serve all frontend files (index.html, css, js, images)
-app.use(express.static(__dirname));
+app.use(express.static('.'));
+
+// Explicitly serve index.html for root route
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/index.html');
+});
 
 // Handle Socket.IO connections
 io.on('connection', socket => {
